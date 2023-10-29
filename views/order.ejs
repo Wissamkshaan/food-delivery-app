@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <h1> Order Details </h1>
+    <p>User <%= order.user %></p>
+    <h2> Order Items </h2>
+    <ul>
+        <% order.orderItems.forEach(function(item) { %> 
+            <li>
+                <p> Name: <%= item.name %></p>
+                <p>Amount: <%= item.amount %></p>
+                <p>Price: $<%= item.price %></p>
+                <p>Product ID: <%= item.product %></p>
+            </li>
+        <% }); %>
+    </ul>
+    <h2> Shipping Address </h2>
+    <p> Address: <%= order.shippingAddress.address %></p>
+    <p> City: <%= order.shippingAddress.city %></p>
+    <p>Postal Code: <%= order.shippingAddress.postalCode %></p>
+    <p> Country: <%= order.shippingAddress.country %> </p>
+    <h2>Payment Details</h2>
+    <p>Payment Method: <%= order.paymentMethod %></p>
+    <h3>Payment Result </h3>
+    <p>ID: <%= order.paymentResult.id %></p>
+    <p>Status: <%= order.paymentResult.status %></p>
+    <p> Update Time: <%= order.paymentResult.update_time %></p>
+    <p>Email Address: <%= order.paymentResult.email_address %></p>
+    <h2> Order Pricing </h2>
+    <p> Tax Price: $<%= order.taxPrice %></p>
+    <p>Shipping Price: $<%= order.shippingPrice %></p>
+    <p> Total Price: $<%= order.totalPrice %></p>
+    <h2>Payment and Delivery Status</h2>
+    <p> Is Paid: <%= order.isPaid ? "Yes" : "No" %></p>
+    <p> Paid At: <%= order.paidAt %></p>
+    <p> Is Delivered: <%= order.isDelivered ? "Yes" : "No" %></p>
+    <p> Delivered At: <%= order.deliveredAt %></p>
+</body>
+<%- include('../partials/footer.ejs') %>
+</html>

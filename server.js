@@ -4,9 +4,6 @@ const bodyParser = require("body-parser");// to parse the request and create req
 const cookieParser = require("cookie-parser");// A.T. 27.10 import cookie
 //const methodOverride = require("method-override");
 const db = require('./db/connection');
-// const env = require("dotenv").config({path: './.env'});
-// const ejs = require('ejs');
-// const path = require('path');
 
 const PORT = 3000;
 
@@ -49,14 +46,14 @@ app.use('/dishes', productRouter);
 
 // function to calculate total price
 // used .reduce to get the sum of the item
-const calculateOrderAmount = (orderItems) => {
-    const initialValue = 0;
-    const itemsPrice = orderItems.reduce(
-        (previousValue, currentValue) =>
-        previousValue + currentValue.price * currentValue.amount, initialValue
-    );
-    return itemsPrice * 100; // strip accepts smallest currency like cents
-}
+// const calculateOrderAmount = (orderItems) => {
+//     const initialValue = 0;
+//     const itemsPrice = orderItems.reduce(
+//         (previousValue, currentValue) =>
+//         previousValue + currentValue.price * currentValue.amount, initialValue
+//     );
+//     return itemsPrice * 100; // strip accepts smallest currency like cents
+// }
 
 // app.use(bodyParser.json());
 //parse the body that passed to the API
@@ -125,10 +122,17 @@ const calculateOrderAmount = (orderItems) => {
 //     res.json({ message: "Welcome to DeliciousDash"});
 // });
 
+//getting the views from the view folder
+app.get('/about', (req, res) => {
+  res.render('about')
+})
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+app.get('/users/newuser', (req, res) => {
+  res.render('newuser')
+})
+
+
+
 
 
 
@@ -160,6 +164,7 @@ app.listen(PORT, () => {
 //             currency: 'usd'
 //         })
 
+
 //         res.send({
 //             clientSecret: paymentIntent.client_secret
 //         })
@@ -171,3 +176,4 @@ app.listen(PORT, () => {
 //         })
 //     }
 // })
+

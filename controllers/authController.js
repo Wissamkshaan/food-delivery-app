@@ -28,6 +28,7 @@ const sendNewUserForm = (req, res, next) => {
       isLoggedIn = true
   } 
   res.render('users/newuser.ejs', {isLoggedIn})
+  next
 
 }
 

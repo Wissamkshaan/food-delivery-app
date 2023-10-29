@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details</title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <h1> Product Details </h1>
+    <% products.forEach(function(product) { %>
+        <div class="product">
+            <h2> <%= product.name %> </h2>
+            <p> Adjecctive: <%= product.adjective %> </p>
+            <p> Description: <%= poduct.description %> </p>
+            <p> Price: $<%= product.price %> </p>
+            <p> Category: <%= product.category %> </p>
+        </div>
+    <% }) %>
+    
+</body>
+<%- include('../partials/footer.ejs') %>
+</html>
