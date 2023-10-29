@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 // this will be within the product and difine what the product is like(breakfast,dinner...etc)
-const CategorySchema = new Schema(
+const categorySchema = new Schema(
     {
         name: { type: String, required: true }
     }

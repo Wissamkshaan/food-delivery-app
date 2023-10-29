@@ -5,6 +5,7 @@ const PORT =3000;
 const db = require('./db/connection');
 const env = require("dotenv").config({path: './.env'});
 const ejs = require('ejs');
+const router = express.Router()
 const path = require('path');
 
 const app = express();
@@ -15,7 +16,7 @@ const userRouter = require('./routes/userRouter');
 
 app.set('views',path.join(__dirname, 'views'))
 app.set('view engine', 'ejs');
-
+app.use('/products', productRouter)
 app.use('/users', userRouter);
 
 // function to calculate total price
@@ -93,16 +94,39 @@ app.get("/", (req, res) => {
     res.json({ message: "Welcome to DeliciousDash"});
 });
 
+//getting the views from the view folder
+app.get('/about', (req, res) => {
+  res.render('about')
+})
 
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+app.get('/users/newuser', (req, res) => {
+  res.render('newuser')
+})
+
+
 
 // setting up the MW
 app.use('/api/', productRouter);
 app.use('/api/', userRouter);
 
 // to post the payment
+app.get('/products-by-categories', async(req, res) => {
+  try {
+      const products = await Product.aggregate([
+          { $match: {}},
+          { $group: {
+              _id: '$category',
+              products: { $push: '$$ROOT'} // ROOT returns all fields of products
+          }},
+          { $project: { name: '$_id', products: 1, _id: 0}}
+      ])
+      res.status(200).send({ data: products})
+  } catch (err) {
+      res.status(400).send({ error: err})
+  }
+})
+
+
 app.post('/create-payment-intent', async(req, res) => {
     try {
         const { orderItems, shippingAddress, userId } = req.body; // user id to be set when creat auth file
@@ -141,3 +165,31 @@ app.post('/create-payment-intent', async(req, res) => {
         })
     }
 })
+//getting the order
+const order = {
+  user: req.body._id,
+  orderItems: req.body
+};
+
+app.get('/order', (req, res) => {
+  res.render('order', { order: order})
+})
+
+//creating users
+const user = [
+  //we need to create users here 
+]
+//we can get our users here 
+app.get('/user', (req, res) => {
+  res.render('user-details', { users: user})
+})
+
+
+
+
+
+
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});

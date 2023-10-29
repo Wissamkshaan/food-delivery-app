@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User</title>
+</head>
+<body>
+    <%- include('../partials/header.ejs') %>
+    <h1> User Details </h1>
+    <%= users.forEach(function(user) { %>
+        <div class="user">
+            <h2>Name: <%= user.firstName %> <%= user.lastName %></h2>
+            <p>Email: <%= user.email %></p>
+            <p>Password: <%= user.password %></p>
+            <p>Created At: <%= user.createdAt %></p>
+            <p>Updated At: <%= user.UpdatedAt %></p>
+        </div>
+    <% }); %>
+</body>
+<%- include('../partials/footer.ejs') %>
+</html>
